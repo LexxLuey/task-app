@@ -1,8 +1,36 @@
 const express = require('express')
+const cors = require('cors')
 const pool = require('./db')
 const app = express()
 const port = 3000
 
+const allowedOriginPatterns = [
+    /^http:\/\/localhost:\d+$/,
+    /^http:\/\/127\.0\.0\.1:\d+$/
+]
+
+const corsOptions = {
+    origin: (origin, callback) => {
+        // Allow requests from tools like curl/Postman that don't send an Origin header.
+        if (!origin) {
+            return callback(null, true)
+        }
+
+        // Allow file:// frontend requests where browsers send Origin: "null".
+        if (origin === 'null') {
+            return callback(null, true)
+        }
+
+        const isAllowedLocalOrigin = allowedOriginPatterns.some((pattern) => pattern.test(origin))
+        return callback(null, isAllowedLocalOrigin)
+    },
+    methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type'],
+    credentials: false
+}
+
+app.use(cors(corsOptions))
+app.options(/.*/, cors(corsOptions))
 app.use(express.json())
 
 app.post('/tasks', async (req, res) => {

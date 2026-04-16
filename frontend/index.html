@@ -1,0 +1,35 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager | JLD Aveo</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./app.js" defer></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>📋 Task Manager</h1>
+        <div class="subtitle">Your personal task dashboard</div>
+
+        <!-- Add Task Form -->
+        <div class="add-task-form">
+            <input type="text" id="taskTitle" class="task-input" placeholder="Task title..." autocomplete="off">
+            <input type="text" id="taskDesc" class="task-input" placeholder="Description (optional)" autocomplete="off">
+            <button id="addTaskBtn" class="add-btn">+ Add Task</button>
+        </div>
+
+        <!-- Task List -->
+        <ul id="taskList" class="task-list">
+            <li class="loading">Loading tasks...</li>
+        </ul>
+
+        <!-- Task Count -->
+        <div id="taskCount" class="task-count"></div>
+    </div>
+
+</body>
+
+</html>
